@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "./node_modules/bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+@import 'ngx-toastr/toastr';
+
+/* Header Styles */
+header {
+    background-color: #475cc3;
+    color: #f5f107;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    background-color: #475cc3;
+    color: #f5f107;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button-cell button {
+    margin-right: 20px;
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.modal-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}

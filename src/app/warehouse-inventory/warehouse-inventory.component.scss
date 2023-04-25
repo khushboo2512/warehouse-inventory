@@ -1,0 +1,110 @@
+/* Body Styles */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+/* Container Styles */
+.container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Aside Styles */
+aside {
+  background-color: #f2f2f2;
+  width: 25%;
+  padding: 30px;
+  height: calc(100vh - 120px);
+  float: left;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  margin-bottom: 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+nav a:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* navbar styles */
+.nav-link {
+  color: #fff;
+  margin-right: 1rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #c8c8c8;
+}
+
+.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Main Styles */
+main {
+  padding: 20px;
+  flex: 1;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+table {
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+/* Form Styles */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f2f2f2;
+  padding: 10px;
+}

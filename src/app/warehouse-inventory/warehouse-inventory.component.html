@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Warehouse Management System</title>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet"> -->
+</head>
+
+<body>
+
+  <header>
+    <h1>Warehouse Management System</h1>
+  </header>
+
+  <div class="container">
+    <aside>
+      <nav>
+        <ul>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="activeTab === 'products'"
+              (click)="setActiveTab('products')">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="activeTab === 'articles'"
+              (click)="setActiveTab('articles')">Articles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="activeTab === 'sales'" (click)="setActiveTab('sales')">Sales</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="activeTab === 'Register a Sale'"
+              (click)="setActiveTab('Register a Sale')">Register a Sale</a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <main>
+
+      <section id="products">
+        <div *ngIf="activeTab === 'products'">
+          <div class="list-header mb-2">
+            <h3 class="m-0">{{ activeTab | titlecase }}</h3>
+            <button class="btn btn-primary" (click)="createProduct('Create')">Create</button>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Articles</th>
+                <th>Amount Required per Product</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products">
+                <td>{{ product.name }}</td>
+                <td>
+                  <ul>
+                    <li *ngFor="let article of product.articles">{{ getArticleName(article.id) }}</li>
+                  </ul>
+                </td>
+                <td>
+                  <ul>
+                    <li *ngFor="let article of product.articles">
+                      {{ article.amountRequired }}
+                    </li>
+                  </ul>
+                </td>
+                <td class="button-cell">
+                  <button type="button" class="btn btn-primary mr-2" (click)="editProduct('Edit',product)">Edit</button>
+                  <button class="btn btn-primary" (click)="deleteItem(product.id,'products')"><i
+                      class="fa fa-remove"></i>Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <div *ngIf="activeTab === 'articles'">
+        <div class="list-header mb-2">
+          <h3 class="m-0">{{ activeTab | titlecase }}</h3>
+          <button class="btn btn-primary" (click)="createArticle('Create')">Create</button>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Amount In Stock</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let article of articles">
+              <td>{{ article.name }}</td>
+              <td>{{ article.amountInStock }}</td>
+              <td class="button-cell">
+                <button class="btn btn-primary" (click)="editArticle('Edit',article)">Edit</button>
+                <button class="btn btn-primary" (click)="deleteItem(article.id, 'articles')">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="activeTab === 'sales'">
+        <div class="list-header mb-2">
+          <h3 class="m-0">{{ activeTab | titlecase }}</h3>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>Amount Sold</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sale of sales">
+              <td>{{ getProductName(sale.productId) }}</td>
+              <td>{{ sale.amountSold }}</td>
+              <td>{{ sale.createdAt | date: 'MMM d, y h:mm a' }}</td>
+              <td class="button-cell">
+                <button class="btn btn-primary" (click)="editSale('Edit',sale)">Edit</button>
+                <button class="btn btn-primary" (click)="deleteItem(sale.id, 'sales',sale)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="activeTab === 'Register a Sale'">
+        <div class="list-header mb-2">
+          <h3 class="m-0">{{ activeTab | titlecase }}</h3>
+        </div>
+        <div class="row">
+          <form [formGroup]="addSaleForm" (ngSubmit)="onSaleSubmit()">
+            <div class="form-group">
+              <label for="product">Product</label>
+              <select class="form-control" id="product" formControlName="productId" (change)="onProductSelect($event)">
+                <option value="">Select an option</option>
+                <option *ngFor="let product of products" [value]="product.id">{{product.name}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="quantity">Quantity</label>
+              <input type="number" class="form-control" id="quantity" placeholder="Enter quantity sold"
+                formControlName="amountSold" (change)="validateQuantity()">
+              <div *ngIf="addSaleForm.controls['amountSold'].errors?.['invalidQuantity']" class="text-danger">Quantity
+                entered is more than the available stock</div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4 col-5"
+              [disabled]="addSaleForm.invalid || isCreate">Submit</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+  </div>
+  <footer>
+    <div class="container">
+      <p>Warehouse Management System &copy; 2023</p>
+    </div>
+  </footer>
+</body>
+
+</html>
+
+<ng-template #deleteModal>
+  <div class="modal-header">
+    <h4 class="modal-title">Delete</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <p>Are you sure to delete this item?</p>
+  </div>
+  <div class="d-flex justify-content-center button-cell mb-2">
+    <button type="button" class="btn btn-primary" (click)="confirmDelete()">Delete</button>
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>

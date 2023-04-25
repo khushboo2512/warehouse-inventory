@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{action}} Sale</h4>
+    <button type="button" class="close" aria-label="Close" (click)="cancel()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="addSaleForm" (ngSubmit)="submitForm()">
+        <div class="form-group mb-3 col-5">
+            <label for="product">Product</label>
+            <select class="form-control disabled" id="product" formControlName="productId" [disabled]="true">
+                <option value="">Select an option</option>
+                <option *ngFor="let product of products" [value]="product.id">{{product.name}}</option>
+            </select>
+        </div>
+        <div class="form-group mb-3 col-5">
+            <label for="quantity">Quantity</label>
+            <input type="number" class="form-control" id="quantity" placeholder="Enter quantity to be sold"
+                formControlName="amountSold">
+            <div *ngIf="addSaleForm.controls['amountSold'].errors?.['invalidQuantity']" class="text-danger">Quantity
+                entered is more than the available stock</div>
+        </div>
+        <div class="d-flex justify-content-center button-cell">
+            <button type="submit" [disabled]="isCreate" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,43 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{action}} Product</h4>
+  <button type="button" class="close" aria-label="Close" (click)="cancel()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="productForm" (ngSubmit)="submitForm()">
+    <div class="form-group mb-3 col-md-4">
+      <label for="name">Product Name</label>
+      <input type="text" class="form-control" id="name" placeholder="Enter Product name" formControlName="name">
+    </div>
+    <button type="button" class="btn btn-primary mb-3 col-md-2" (click)="addArticle()">Add Article</button>
+
+    <div formArrayName="articles">
+      <div *ngFor="let article of articlesFormArray.controls; let i=index">
+        <div [formGroupName]="i" class="row">
+          <div class="form-group mb-3 col-md-4">
+            <label for="article">Article</label>
+            <select class="form-control" id="article" formControlName="id">
+              <option value="">Select an option</option>
+              <option *ngFor="let option of articleData" [value]="option.id">{{ getArticleName(option.id) }}</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3 col-md-4">
+            <label for="amountRequired">Amount Required</label>
+            <input type="number" class="form-control" id="amountRequired" placeholder="Enter Amount required" formControlName="amountRequired">
+          </div>
+          <div class="form-group mt-4 col-md-4">
+            <button type="button" class="btn btn-secondary" (click)="deleteArticle(i)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="d-flex justify-content-center button-cell mt-3">
+      <button type="submit" [disabled]="isCreate" class="btn btn-primary mr-2">Submit</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>

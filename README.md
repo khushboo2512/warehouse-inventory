@@ -31,5 +31,6 @@ Initial setup: The initial setup for an Angular project can take some time, espe
 ## Considerations for Another Iteration
 
 Authentication: Currently, the API does not require authentication. In a real-world application, we would need to add authentication to prevent unauthorized access to the data.
+
 Automated testing: Currently, the code does not have automated tests. In a future iteration, would add tests to ensure the code is working as expected and to make it easier to make changes to the code without introducing bugs.
 Loader implementation: Throughout application a loader can be implemented which will be shown until the backend api calls give response.

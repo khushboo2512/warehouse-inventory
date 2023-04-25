@@ -16,6 +16,7 @@ import { SaleModalComponent } from '../sale-modal/sale-modal.component';
   styleUrls: ['./warehouse-inventory.component.scss']
 })
 export class WarehouseInventoryComponent implements OnInit {
+  isLoading = true;
   activeTab: string = 'products';
   products: any;
   sales: any;
@@ -60,6 +61,7 @@ export class WarehouseInventoryComponent implements OnInit {
   getArticles() {
     this.articleService.getArticles().subscribe((res: any) => {
       this.articles = res;
+      this.isLoading = false;
       this.successMessage = 'Data loaded successfully';
     }, err => {
       if (err.status === 0) {
@@ -76,6 +78,7 @@ export class WarehouseInventoryComponent implements OnInit {
   getSales() {
     this.saleService.getSales().subscribe((res: any) => {
       this.sales = res;
+      this.isLoading = false;
     }, err => {
       if (err.status === 0) {
         this.errorMessage = 'Server is not running. Please try again later.';
@@ -91,6 +94,7 @@ export class WarehouseInventoryComponent implements OnInit {
   getProducts() {
     this.productService.getProducts().subscribe((res: any) => {
       this.products = res;
+      this.isLoading = false;
     }, err => {
       if (err.status === 0) {
         this.errorMessage = 'Server is not running. Please try again later.';

@@ -35,10 +35,13 @@
         </ul>
       </nav>
     </aside>
+    <div *ngIf="isLoading">
+      <main>Loading...</main></div> 
+  
     <main>
 
       <section id="products">
-        <div *ngIf="activeTab === 'products'">
+        <div *ngIf="activeTab === 'products' && !isLoading">
           <div class="list-header mb-2">
             <h3 class="m-0">{{ activeTab | titlecase }}</h3>
             <button class="btn btn-primary" (click)="createProduct('Create')">Create</button>
@@ -77,7 +80,7 @@
           </table>
         </div>
       </section>
-      <div *ngIf="activeTab === 'articles'">
+      <div *ngIf="activeTab === 'articles' && !isLoading">
         <div class="list-header mb-2">
           <h3 class="m-0">{{ activeTab | titlecase }}</h3>
           <button class="btn btn-primary" (click)="createArticle('Create')">Create</button>
@@ -102,7 +105,7 @@
           </tbody>
         </table>
       </div>
-      <div *ngIf="activeTab === 'sales'">
+      <div *ngIf="activeTab === 'sales' && !isLoading">
         <div class="list-header mb-2">
           <h3 class="m-0">{{ activeTab | titlecase }}</h3>
         </div>
@@ -128,7 +131,7 @@
           </tbody>
         </table>
       </div>
-      <div *ngIf="activeTab === 'Register a Sale'">
+      <div *ngIf="activeTab === 'Register a Sale' && !isLoading">
         <div class="list-header mb-2">
           <h3 class="m-0">{{ activeTab | titlecase }}</h3>
         </div>
@@ -154,8 +157,8 @@
         </div>
       </div>
     </main>
-
   </div>
+  <!-- </div> -->
   <footer>
     <div class="container">
       <p>Warehouse Management System &copy; 2023</p>
